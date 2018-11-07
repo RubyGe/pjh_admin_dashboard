@@ -1,0 +1,67 @@
+---
+- :name: ajs_group_id
+  :value: "%22startup-5430559%22"
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2019-10-16 09:56:19.999999912 Z
+  :secure: false
+- :name: amplitude_id_add5896bb4e577b77205df2195a968f6angel.co
+  :value: eyJkZXZpY2VJZCI6ImNiNTZlZDA5LTMyYzctNDU0ZC04NWM0LTQ4OTk1MDk0NzIyY1IiLCJ1c2VySWQiOiI3NTY2Nzg4Iiwib3B0T3V0IjpmYWxzZSwic2Vzc2lvbklkIjoxNTM5NjgzNzc3NzUxLCJsYXN0RXZlbnRUaW1lIjoxNTM5NjgzNzgwMzM5LCJldmVudElkIjowLCJpZGVudGlmeUlkIjozLCJzZXF1ZW5jZU51bWJlciI6M30=
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2028-10-13 09:56:19.999999912 Z
+  :secure: false
+- :name: ajs_user_id
+  :value: "%227566788%22"
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2019-10-16 09:56:19.999999912 Z
+  :secure: false
+- :name: _angellist
+  :value: ca5de429e9e86611e64dde13c6bc7014
+  :path: "/"
+  :domain: angel.co
+  :expires: !ruby/object:DateTime 2018-11-13 10:56:20.350396049 Z
+  :secure: true
+- :name: intercom-id-og2vxfl5
+  :value: 0f636b5a-1ed3-4178-a569-48d14a30afa1
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2019-07-13 10:29:37.999999886 Z
+  :secure: false
+- :name: ajs_anonymous_id
+  :value: "%225a4c6aaf2c41b2dce552a440ba256984%22"
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2019-10-16 09:56:17.000000153 Z
+  :secure: false
+- :name: _ga
+  :value: GA1.2.21041399.1539683777
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2020-10-15 09:56:19.999999912 Z
+  :secure: false
+- :name: _gat
+  :value: '1'
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2018-10-16 09:57:17.000000034 Z
+  :secure: false
+- :name: _gid
+  :value: GA1.2.2012899821.1539683777
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2018-10-17 09:56:19.999999912 Z
+  :secure: false
+- :name: amplitude_idundefinedangel.co
+  :value: eyJvcHRPdXQiOmZhbHNlLCJzZXNzaW9uSWQiOm51bGwsImxhc3RFdmVudFRpbWUiOm51bGwsImV2ZW50SWQiOjAsImlkZW50aWZ5SWQiOjAsInNlcXVlbmNlTnVtYmVyIjowfQ==
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: 
+  :secure: false
+- :name: _fbp
+  :value: fb.1.1539683777483.1749679054
+  :path: "/"
+  :domain: ".angel.co"
+  :expires: !ruby/object:DateTime 2018-10-16 12:05:55.999999924 Z
+  :secure: false
