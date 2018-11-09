@@ -5,58 +5,79 @@ class Database
     @db = PG.connect(dbname: 'productjobs')
   end
 
-  def company_existed?(name, url)
-    sql = "SELECT * FROM companies WHERE name = $1 AND url = $2"
-    result = @db.exec_params(sql, [name, url])
-    result.ntuples != 0
+  # def company_existed?(name, job_board_url)
+  #   sql = "SELECT * FROM companies WHERE name = $1 AND job_board_url = $2"
+  #   result = @db.exec_params(sql, [name, url])
+  #   result.ntuples != 0
+  # end
+
+  def query(statement, *params)
+    puts "DB: #{statement} -> #{params}"
+    @db.exec_params(statement, params)
   end
 
-  def update_companies(companies, location)
-    companies.each do |company|
-      name = company[:name]
-      url = company[:job_url]
-      if !company_existed?(name, url)
-        sql = "INSERT INTO companies (name, url, location) VALUES ($1, $2, $3)"
-        params = [name, url, location]
-        @db.exec_params(sql, params)
-      end
+  def update_company(company)
+    name = company[:name]
+    job_board_url = company[:job_board_url]
+    logo_url = company[:logo_url]
+    website_url = company[:website_url]
+
+    company_id = find_company_id(name, job_board_url)
+
+    if company_id.nil?
+      sql = "INSERT INTO companies (name, job_board_url, logo_url, website_url) VALUES ($1, $2, $3, $4)"
+      query(sql, name, job_board_url, logo_url, website_url)
+    else
+      sql = "UPDATE companies SET logo_url = $1, website_url = $2 WHERE id = $3"
+      query(sql, logo_url, website_url, company_id)
     end
   end
 
   def find_job_id(url)
-    sql = "SELECT id FROM jobs WHERE url = $1"
-    result = @db.exec_params(sql, [url])
+    sql = "SELECT id FROM jobs WHERE job_listing_url = $1"
+    result = query(sql, url)
     result.ntuples == 0 ? nil : result[0]["id"]
   end
 
-  def find_company_id_from_url(url)
-    sql = "SELECT id FROM companies WHERE url = $1"
-    result = @db.exec_params(sql, [url])
-    result[0]["id"].to_i
+  def find_company_id(name, job_board_url)
+    sql = "SELECT id FROM companies WHERE name = $1 AND job_board_url = $2"
+    result = query(sql, name, job_board_url)
+    result.ntuples == 0 ? nil : result[0]["id"].to_i
   end
 
-  def update_job(job_details, company_url)
-    # { title: title, url: url, location: location, description: description, compensation: compensation }
-    job_id = find_job_id(job_details[:url])
-    company_id = find_company_id_from_url(company_url)
-    params = [ job_details[:title], job_details[:url], job_details[:location],
-                 job_details[:description], job_details[:compensation], company_id ]
+  # rewrite
+  def update_job(job_listing, company)
+  #       { title: title, job_listing_url: job_listing_url, locations: locations, 
+  #       salary_min: salary_min, salary_max: salary_max, description: description,
+  #       date_posted: date_posted }
+    job_id = find_job_id(job_listing[:job_listing_url])
+    company_id = find_company_id(company[:name], company[:job_board_url])
     if job_id.nil?
-      sql = "INSERT INTO jobs (title, url, location, description, compensation, company_id) 
-             VALUES ($1, $2, $3, $4, $5, $6)"
-      @db.exec_params(sql, params)
+      params = [ job_listing[:title], job_listing[:job_listing_url], job_listing[:locations],
+               job_listing[:salary_min], job_listing[:salary_max], job_listing[:description],
+               job_listing[:date_posted], company_id ]
+      sql = "INSERT INTO jobs (title, job_listing_url, locations, 
+                               salary_min, salary_max, description,
+                               date_posted, company_id) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)"
+      query(sql, *params)
     else
-      sql = "UPDATE jobs SET title = $1, url = $2, location = $3, description = $4, compensation = $5, company_id = $6
-             WHERE id = $7"
-      @db.exec_params(sql, params + company_id)
+      params = [ job_listing[:title], job_listing[:job_listing_url], job_listing[:locations],
+               job_listing[:salary_min], job_listing[:salary_max], job_listing[:description],
+               job_listing[:date_posted], Time.now, job_id ]
+      sql = "UPDATE jobs SET title = $1, job_listing_url = $2, locations = $3, 
+                             salary_min = $4, salary_max = $5, description = $6,
+                             date_posted = $7, updated_at = $8
+             WHERE id = $9"
+      timestamp = Time.now
+      query(sql, *params)
     end
-
   end
 
   def get_companies
-    result = @db.exec  "SELECT  * FROM companies;"
+    result = query("SELECT  * FROM companies;")
     result.map do |company|
-      { name: company["name"], job_url: company["url"] }
+      { name: company["name"], job_board_url: company["job_board_url"] }
     end
   end
 end

@@ -7,7 +7,7 @@ module Navigate
     sleep rand(SLEEP[:lower_limit] * multi..SLEEP[:higher_limit] * multi)
   end
 
-  def save_cookies(cookies)
+  def save_cookies
     cookies = @driver.manage.all_cookies
     data_dump("cookies", cookies)
   end

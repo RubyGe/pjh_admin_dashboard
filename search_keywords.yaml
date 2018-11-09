@@ -1,8 +1,10 @@
 ---
 locations:
+  - San Francisco
   - Vancouver
   - Toronto
 job_titles:
   - Product Manager
   - Product Owner
   - Product Associate
+  - Head of Product
